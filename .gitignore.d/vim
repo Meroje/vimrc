@@ -1,0 +1,8 @@
+*
+.vimrc.local
+!/.gitignore.d
+!/.gitignore.d/vim
+!/.vim
+!/.vim/autoload
+!/.vim/autoload/plug.vim
+!/.vimrc
