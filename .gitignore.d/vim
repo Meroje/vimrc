@@ -2,6 +2,10 @@
 .vimrc.local
 !/.gitignore.d
 !/.gitignore.d/vim
+!/.config/
+!/.config/mr/
+!/.config/mr/config.d/
+!/.config/mr/config.d/vim.vcsh
 !/.vim
 !/.vim/autoload
 !/.vim/autoload/plug.vim
