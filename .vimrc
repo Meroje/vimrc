@@ -14,8 +14,12 @@ Plug 'editorconfig/editorconfig-vim'
 
 Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
+
+Plug 'sheerun/vim-polyglot'
 
 " Initialize plugin system
 call plug#end()
@@ -123,6 +127,23 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " }
+" ALE (async syntastic) {
+let g:ale_completion_enabled = 1
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\}
+let g:airline#extensions#ale#enabled = 1
+
+augroup FiletypeGroup
+    autocmd!
+    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+augroup END
+let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+let g:ale_linter_aliases = {'jsx': 'css'}
+" }
+
+" GitGutter
+let g:gitgutter_grep_command = 'rg'
 
 " Use local vimrc if available {
 if filereadable(expand("\~/.vimrc.local"))
