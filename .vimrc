@@ -2,6 +2,8 @@
 " https://github.com/junegunn/vim-plug {
 call plug#begin('~/.vim/plugged')
 
+Plug 'mhinz/vim-startify'
+
 Plug 'vim-airline/vim-airline'
   Plug 'morhetz/gruvbox'
 
