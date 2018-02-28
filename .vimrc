@@ -4,6 +4,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'mhinz/vim-startify'
 
+Plug 'wincent/terminus'
+
 Plug 'vim-airline/vim-airline'
   Plug 'morhetz/gruvbox'
 
