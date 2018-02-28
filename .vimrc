@@ -21,6 +21,12 @@ Plug 'w0rp/ale'
 
 Plug 'sheerun/vim-polyglot'
 
+Plug 'fatih/vim-go', { 'for': ['go'] }
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown'] }
+
 " Initialize plugin system
 call plug#end()
 
@@ -144,6 +150,11 @@ let g:ale_linter_aliases = {'jsx': 'css'}
 
 " GitGutter
 let g:gitgutter_grep_command = 'rg'
+
+" Better line joining (J)
+if v:version > 703 || v:version == 703 && has('patch541')
+  set formatoptions+=j
+endif
 
 " Use local vimrc if available {
 if filereadable(expand("\~/.vimrc.local"))
