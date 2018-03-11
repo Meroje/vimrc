@@ -2,9 +2,9 @@
 " https://github.com/junegunn/vim-plug {
 call plug#begin('~/.vim/plugged')
 
-Plug 'mhinz/vim-startify'
-
-Plug 'wincent/terminus'
+Plug 'mhinz/vim-startify'   " Recent files start page
+Plug 'tpope/vim-vinegar'    " Better netrw
+Plug 'wincent/terminus'     " iTerm2 integration
 
 Plug 'vim-airline/vim-airline'
   Plug 'morhetz/gruvbox'
