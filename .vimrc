@@ -79,7 +79,7 @@ autocmd InsertEnter,WinLeave * set nocursorline
 set wrapscan               " Searches wrap around end-of-file.
 set report      =0         " Always report changed lines.
 set synmaxcol   =200       " Only highlight the first 200 columns.
-set colorcolumn = 80,120   " Colored vertical line
+set colorcolumn =80,120   " Colored vertical line
 set number                 " Line number for current line
 set relativenumber         " Relative to current line
 " }
@@ -143,7 +143,7 @@ let g:ale_linter_aliases = {'jsx': 'css'}
 " GitGutter
 let g:gitgutter_grep_command = 'rg'
 
-" Better line joining (J)
+" Better line joining (J), removes comment markers
 if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
