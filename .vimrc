@@ -86,8 +86,13 @@ set relativenumber         " Relative to current line
 
 " Theme {
 set background  =dark
-colorscheme gruvbox
-let g:airline_theme ='gruvbox'
+augroup MyTheme
+    autocmd!
+    autocmd ColorScheme gruvbox let g:airline_theme ='gruvbox'
+augroup END
+if index(getcompletion('', 'color'), 'gruvbox') >= 0
+    colorscheme gruvbox
+endif
 let g:airline_powerline_fonts =1
 " }
 
