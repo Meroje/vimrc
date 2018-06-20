@@ -1,2 +1,8 @@
 [$HOME/.config/vcsh/repo.d/vim.git]
 checkout = vcsh clone git://github.com/Meroje/vimrc.git vim
+order = 10
+
+[$HOME/.vim/plugged]
+checkout = nohup vim +PlugInstall +qa >/dev/null 2>&1
+update = nohup vim +PlugUpdate +qa >/dev/null 2>&1
+order = 20
