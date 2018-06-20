@@ -63,6 +63,9 @@ set showmode               " Show current mode in command-line.
 set showcmd                " Show already typed keys when more are expected.
 set foldenable             " auto fold code
 
+set wildmenu               " Enhanced completions
+set wildmode=list:full
+
 set incsearch              " Highlight while searching with / or ?.
 set hlsearch               " Keep matches highlighted.
 
