@@ -82,12 +82,13 @@ autocmd InsertEnter,WinLeave * set nocursorline
 set wrapscan               " Searches wrap around end-of-file.
 set report      =0         " Always report changed lines.
 set synmaxcol   =200       " Only highlight the first 200 columns.
-set colorcolumn =80,120   " Colored vertical line
+set colorcolumn =80,120    " Colored vertical line
 set number                 " Line number for current line
 set relativenumber         " Relative to current line
 " }
 
 " Theme {
+set termguicolors          " 24 bit colors
 set background  =dark
 augroup MyTheme
     autocmd!
