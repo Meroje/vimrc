@@ -1,13 +1,12 @@
 *
-.vimrc.local
 !/.config
 !/.config/mr
 !/.config/mr/config.d
-!/.config/mr/config.d/vim.vcsh
+!/.config/mr/config.d/vimrc.vcsh
 !/.config/nvim
 !/.config/nvim/init.vim
 !/.gitignore.d
-!/.gitignore.d/vim
+!/.gitignore.d/vimrc
 !/.vim
 !/.vim/autoload
 !/.vim/autoload/plug.vim
