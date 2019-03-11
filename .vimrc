@@ -24,7 +24,7 @@ Plug 'w0rp/ale'
 
 Plug 'sheerun/vim-polyglot'
 
-Plug 'fatih/vim-go', { 'for': ['go'] }
+Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoInstallBinaries' }
 
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
@@ -86,6 +86,8 @@ set splitright             " Open new windows right of the current window.
 set cursorline             " Find the current line quickly.
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
+
+set autowrite              " Save file when running :make
 
 set wrapscan               " Searches wrap around end-of-file.
 set report      =0         " Always report changed lines.
