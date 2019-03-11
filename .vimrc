@@ -10,7 +10,6 @@ Plug 'vim-airline/vim-airline'
   Plug 'morhetz/gruvbox'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.py' }
 Plug '/usr/local/opt/fzf', { 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
@@ -30,6 +29,15 @@ Plug 'fatih/vim-go', { 'for': ['go'] }
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown'] }
+
+if has("nvim-0.2.2")
+    Plug 'ncm2/ncm2'
+    Plug 'roxma/nvim-yarp'
+    Plug 'ncm2/ncm2-bufword'
+    Plug 'ncm2/ncm2-path'
+else
+    Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.py' }
+endif
 
 " Initialize plugin system
 call plug#end()
