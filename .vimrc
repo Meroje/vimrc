@@ -21,7 +21,7 @@ Plug 'airblade/vim-gitgutter'
 
 " Plug 'vim-syntastic/syntastic'
 Plug 'w0rp/ale'
-
+Plug 'zplugin/zplugin-vim-syntax'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoInstallBinaries' }
