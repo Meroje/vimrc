@@ -7,10 +7,22 @@ Plug 'tpope/vim-vinegar'    " Better netrw
 Plug 'wincent/terminus'     " iTerm2 integration
 
 Plug 'vim-airline/vim-airline'
-  Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug '/usr/local/opt/fzf', { 'do': './install --all' }
+" Nerdtree: file browser
+Plug 'scrooloose/nerdtree'
+let NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden =1
+let NERDTreeMinimalUI=1
+let NERDTreeIgnore=['\.pyc$', '\.git', '__pycache__']
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
+
+" Nerdcommenter: quick commenting
+Plug 'scrooloose/nerdcommenter'
+let NERDCreateDefaultMappings=0
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'editorconfig/editorconfig-vim'
@@ -20,33 +32,48 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Plug 'vim-syntastic/syntastic'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'zplugin/zplugin-vim-syntax'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoInstallBinaries' }
+let g:go_fmt_command = "goimports"
+let g:go_highlight_string_spellcheck = 1
+let g:go_updatetime = 1000
+let g:go_term_mode = "split"
+let g:go_auto_type_info = 1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+"let g:go_fmt_experimental = 1
+"let g:go_fmt_fail_silently = 1
 
 Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown'] }
+\   'do': 'npm install',
+\   'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown']
+\}
 
-if has("nvim-0.2.2")
-    Plug 'ncm2/ncm2'
-    Plug 'roxma/nvim-yarp'
-    Plug 'ncm2/ncm2-bufword'
-    Plug 'ncm2/ncm2-path'
-else
-    Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.py' }
-endif
+" Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.py' }
+" coc - autocomplete
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"" Use tab to finish completion and go to next word
+function! s:check_back_space() abort
+  let char_before = col('.') - 1
+  return !char_before || getline('.')[char_before - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+"" Navigate to the suggesetion before
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"" Enter suggestion
+inoremap <expr> <Cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<Cr>"
+"" Close autocomplete dialog
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <silent><expr> <c-Tab> coc#refresh()
 
 " Initialize plugin system
 call plug#end()
-
-augroup load_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('YouCompleteMe')
-                     \| autocmd! load_ycm
-augroup END
 " }
 
 " General settings {
@@ -55,6 +82,7 @@ set timeoutlen=1000 ttimeoutlen=0 " Esc delay
 set mouse       =a         " Mouse support
 
 set autoindent             " Indent according to previous line.
+set smartindent
 set expandtab              " Use spaces instead of tabs.
 set tabstop     =4         " Tab character is 4 spaces wide.
 set softtabstop =4         " Tab key indents by 4 spaces.
@@ -64,15 +92,23 @@ set gdefault               " the /g flag on :s substitutions by default
 
 set backspace   =indent,eol,start  " Make backspace work as you would expect.
 set hidden                 " Switch between buffers without having to save first.
+set title                  " change the terminal's title
 set laststatus  =2         " Always show statusline.
 set display     =lastline  " Show as much as possible of the last line.
 
 set showmode               " Show current mode in command-line.
 set showcmd                " Show already typed keys when more are expected.
+set showmatch              " Show matching parenthesis
+set smartcase              " ignore case if all lowercase
+
+" Folding
 set foldenable             " auto fold code
+set foldnestmax=1
+set foldmethod=syntax
+set foldlevel=10
 
 set wildmenu               " Enhanced completions
-set wildmode=list:full
+set wildmode    =list:full
 
 set incsearch              " Highlight while searching with / or ?.
 set hlsearch               " Keep matches highlighted.
@@ -95,6 +131,24 @@ set synmaxcol   =200       " Only highlight the first 200 columns.
 set colorcolumn =80,120    " Colored vertical line
 set number                 " Line number for current line
 set relativenumber         " Relative to current line
+set ruler                  " always show current position
+
+" Set color for regular vim
+if !has('nvim')
+    set term=xterm-256color
+endif
+scriptencoding utf-8
+set encoding=utf-8
+set t_Co=256
+set termencoding=utf-8
+set viewoptions=cursor,curdir,folds " limit what views save
+
+"" save folds
+augroup save_folds
+  autocmd!
+  autocmd BufWinLeave * silent! mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
 " }
 
 " Theme {
@@ -107,7 +161,6 @@ augroup END
 if index(getcompletion('', 'color'), 'gruvbox') >= 0
     colorscheme gruvbox
 endif
-let g:airline_powerline_fonts =1
 " }
 
 " Pretty symbols {
@@ -126,11 +179,12 @@ set backupext   =-vimbackup
 set backupskip  =
 set updatecount =100
 set undofile
+set backupdir   =$HOME/.vim/local/backup/
+set directory   =$HOME/.vim/local/swap/
+set undodir     =$HOME/.vim/local/undo/
+set viewdir     =$HOME/.vim/local/view/
 if !has('nvim')
-  set backupdir   =$HOME/.vim/files/backup/
-  set directory   =$HOME/.vim/files/swap/
-  set undodir     =$HOME/.vim/files/undo/
-  set viminfo     ='100,n$HOME/.vim/files/info/viminfo
+  set viminfo     ='100,n$HOME/.vim/local/info/viminfo
 endif
 " }
 
@@ -139,26 +193,32 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 set grepprg=rg\ --vimgrep
 " }
 
-" Syntastic {
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" }
-" ALE (async syntastic) {
+" ALE (Asynchronous Lint Engine) {
 let g:ale_completion_enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_powerline_fonts = 1
+let g:ale_sh_shfmt_options = '-s -i 2 -ci'
+
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \}
-let g:airline#extensions#ale#enabled = 1
-
-augroup FiletypeGroup
-    autocmd!
-    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-augroup END
-let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
-let g:ale_linter_aliases = {'jsx': 'css'}
+let g:ale_linters = {
+\   'go':         ['gofmt', 'goimports'],
+\   'php':        ['php_cs_fixer'],
+\   'json':       ['jq'],
+\   'jsx':        ['stylelint', 'eslint'],
+\   'terraform':  ['tflint', 'terraform_lsp'],
+\   'dockerfile': ['hadolint'],
+\   'sh':         ['shfmt', 'shellcheck'],
+\   'markdown':   ['alex', 'mdl', 'vale'],
+\   'python':     ['black'],
+\   '*':          ['prettier', 'remove_trailing_lines', 'trim_whitespace'],
+\}
+let g:ale_linter_aliases = {
+\   'jsx': 'css'
+\}
 " }
 
 " GitGutter
@@ -169,8 +229,39 @@ if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j
 endif
 
+" YCM (You Complete Me) {
+augroup load_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('YouCompleteMe')
+                     \| autocmd! load_ycm
+augroup END
+" }
+
+let g:terraform_fmt_on_save=1
+let g:vim_json_syntax_conceal = 0
+
+"" Keymappings {
+let mapleader=","
+
+"" Clear highlighting
+map <silent><F12> :source $MYVIMRC<CR>
+"" Browse
+map <silent> - :NERDTreeToggle<CR>
+"" Comment out a line or block
+nmap # <Plug>NERDCommenterToggle
+xmap # <Plug>NERDCommenterToggle
+
+" Golang
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-imports)<Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap @ <Plug>(go-def)
+"au FileType go map <silent><F9> :write<CR>:GoImports<CR>:GoTest<CR>
+au FileType go nmap <silent>! :w<CR>:split <bar> terminal go run %<CR>
+"}
+
 " Use local vimrc if available {
-if filereadable(expand("\~/.vimrc.local"))
-  source \~/.vimrc.local
+if filereadable(expand("$HOME/.vimrc.local"))
+  source $HOME/.vimrc.local
 endif
 " }
