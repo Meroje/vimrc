@@ -10,6 +10,7 @@
 !/.vim
 !/.vim/autoload
 !/.vim/autoload/plug.vim
+!/.vim/coc-settings.json
 !/.vim/filetype.vim
 !/.vim/local
 !/.vim/local/backup

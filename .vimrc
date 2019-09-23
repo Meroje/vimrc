@@ -31,7 +31,6 @@ Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 
-" Plug 'vim-syntastic/syntastic'
 Plug 'dense-analysis/ale'
 Plug 'zplugin/zplugin-vim-syntax'
 Plug 'sheerun/vim-polyglot'
@@ -52,9 +51,9 @@ Plug 'prettier/vim-prettier', {
 \   'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown']
 \}
 
-" Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.py' }
 " coc - autocomplete
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
+let g:coc_config_home="$HOME/.vim"
 "" Use tab to finish completion and go to next word
 function! s:check_back_space() abort
   let char_before = col('.') - 1
