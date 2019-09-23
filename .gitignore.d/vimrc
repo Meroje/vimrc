@@ -10,4 +10,16 @@
 !/.vim
 !/.vim/autoload
 !/.vim/autoload/plug.vim
+!/.vim/filetype.vim
+!/.vim/local
+!/.vim/local/backup
+!/.vim/local/backup/.gitignore
+!/.vim/local/info
+!/.vim/local/info/.gitignore
+!/.vim/local/swap
+!/.vim/local/swap/.gitignore
+!/.vim/local/undo
+!/.vim/local/undo/.gitignore
+!/.vim/local/view
+!/.vim/local/view/.gitignore
 !/.vimrc
