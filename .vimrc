@@ -22,8 +22,7 @@ let g:loaded_netrwPlugin = 1
 Plug 'scrooloose/nerdcommenter'
 let NERDCreateDefaultMappings=0
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'editorconfig/editorconfig-vim'
 
