@@ -1,5 +1,8 @@
 *
 !/.config
+!/.config/coc
+!/.config/coc/extensions
+!/.config/coc/extensions/package.json
 !/.config/mr
 !/.config/mr/config.d
 !/.config/mr/config.d/vimrc.vcsh

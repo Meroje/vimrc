@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "coc-conventional": ">=1.0.0",
+    "coc-docker": ">=0.3.0",
+    "coc-gitignore": ">=0.0.4",
+    "coc-go": ">=0.8.0",
+    "coc-imselect": ">=0.0.12",
+    "coc-json": ">=1.2.6",
+    "coc-markdownlint": ">=1.4.0",
+    "coc-phpactor": ">=1.0.2",
+    "coc-phpls": ">=2.1.8",
+    "coc-project": ">=0.0.9",
+    "coc-pyls": ">=1.0.6",
+    "coc-sh": ">=0.5.1",
+    "coc-tslint-plugin": ">=1.1.1",
+    "coc-tsserver": ">=1.5.1",
+    "coc-vetur": ">=1.1.10",
+    "coc-vimlsp": ">=0.8.0",
+    "coc-yaml": ">=1.0.4"
+  }
+}
