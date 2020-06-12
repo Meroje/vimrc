@@ -27,7 +27,7 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'dense-analysis/ale'
