@@ -74,6 +74,20 @@ inoremap <silent><expr> <c-Tab> coc#refresh()
 Plug 'mattn/webapi-vim'
 Plug 'https://git.sr.ht/~willdurand/srht.vim'
 
+if has('nvim')
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+  Plug 'nvim-treesitter/playground'
+
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'hrsh7th/nvim-compe'
+
+  " dependencies
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  " telescope
+  Plug 'nvim-telescope/telescope.nvim'
+endif
+
 " Initialize plugin system
 call plug#end()
 " }
