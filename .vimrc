@@ -33,6 +33,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'dense-analysis/ale'
 Plug 'zplugin/zplugin-vim-syntax'
 Plug 'sheerun/vim-polyglot'
+let g:polyglot_disabled = ['htmldjango']
 
 Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoInstallBinaries' }
 let g:go_fmt_command = "goimports"
@@ -69,6 +70,9 @@ inoremap <expr> <Cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<Cr>"
 "" Close autocomplete dialog
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <silent><expr> <c-Tab> coc#refresh()
+
+Plug 'mattn/webapi-vim'
+Plug 'https://git.sr.ht/~willdurand/srht.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -256,6 +260,11 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 au FileType go nmap @ <Plug>(go-def)
 "au FileType go map <silent><F9> :write<CR>:GoImports<CR>:GoTest<CR>
 au FileType go nmap <silent>! :w<CR>:split <bar> terminal go run %<CR>
+"}
+
+"" Custom Buf macros {
+au BufNewFile,BufRead *.yml.j2,*.yaml.j2 setf yaml.ansible
+au BufNewFile,BufRead *.tmpl.j2 setf gotexttmpl
 "}
 
 " Use local vimrc if available {
