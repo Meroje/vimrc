@@ -3,6 +3,6 @@ checkout = vcsh clone git://github.com/Meroje/vimrc.git vimrc
 order = 10
 
 [$HOME/.vim/plugged]
-checkout = vim -X -E -c PlugInstall -c 'qa!'
-update = vim -X -E -c PlugUpdate -c 'qa!'
+checkout = vim -X -E -c PlugInstall -c CocInstall -c 'qa!'
+update = vim -X -E -c PlugUpdate -c CocUpdate -c 'qa!'
 order = 20
