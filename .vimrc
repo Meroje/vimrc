@@ -31,7 +31,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'dense-analysis/ale'
-Plug 'zplugin/zplugin-vim-syntax'
+Plug 'FunctionalHacker/zplugin-vim-syntax'
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['htmldjango']
 
