@@ -1,8 +1,14 @@
 " vim: set foldmarker={,} foldlevel=0 foldmethod=marker spell:
+
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
 " https://github.com/junegunn/vim-plug {
 call plug#begin('~/.vim/plugged')
 
-Plug 'mhinz/vim-startify'   " Recent files start page
+Plug 'mhinz/vim-startify', Cond(!exists('g:vscode'))   " Recent files start page
 Plug 'tpope/vim-vinegar'    " Better netrw
 Plug 'wincent/terminus'     " iTerm2 integration
 
@@ -36,6 +42,9 @@ Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['htmldjango']
 
 Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoInstallBinaries' }
+"let g:go_doc_keywordprg_enabled=0
+let g:go_def_mapping_enabled=0  " let coc.nvim handle
+let g:go_gopls_enabled=1 " still needed for GoInfo hover (g:go_auto_type_info)
 let g:go_fmt_command = "goimports"
 let g:go_highlight_string_spellcheck = 1
 let g:go_updatetime = 1000
@@ -43,8 +52,17 @@ let g:go_term_mode = "split"
 let g:go_auto_type_info = 1
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+let g:go_fillstruct_mode='gopls'
+let g:go_doc_balloon = 1
+let g:go_doc_popup_window = 1
+let g:go_metalinter_command = "golangci-lint"
+let g:go_addtags_skip_unexported = 1
 "let g:go_fmt_experimental = 1
 "let g:go_fmt_fail_silently = 1
+autocmd FileType go let b:go_fmt_options = {
+  \ 'goimports': '-local ' .
+    \ trim(system('{cd '. shellescape(expand('%:h')) .' && go list -m;}')),
+  \ }
 
 Plug 'prettier/vim-prettier', {
 \   'do': 'npm install',
@@ -70,6 +88,18 @@ let g:coc_config_home="$HOME/.vim"
 """ Close autocomplete dialog
 "autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 "inoremap <silent><expr> <c-Tab> coc#refresh()
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Use K to show documentation in preview window.
+nnoremap <buffer> <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
 Plug 'mattn/webapi-vim'
 Plug 'https://git.sr.ht/~willdurand/srht.vim'
@@ -87,6 +117,11 @@ if has('nvim')
   " telescope
   Plug 'nvim-telescope/telescope.nvim'
 endif
+
+" use normal easymotion when in VIM mode
+Plug 'easymotion/vim-easymotion', Cond(!exists('g:vscode'))
+" use VSCode easymotion when in VSCode mode
+Plug 'asvetliakov/vim-easymotion', Cond(exists('g:vscode'), { 'as': 'vsc-easymotion' })
 
 " Initialize plugin system
 call plug#end()
