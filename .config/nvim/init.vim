@@ -2,6 +2,10 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
 
+lua <<EOF
+require('dark_notify').run()
+EOF
+
 set inccommand=nosplit
 set undodir=$HOME/.vim/local/undo.nvim/
 

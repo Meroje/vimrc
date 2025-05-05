@@ -12,8 +12,19 @@ Plug 'mhinz/vim-startify', Cond(!exists('g:vscode'))   " Recent files start page
 Plug 'tpope/vim-vinegar'    " Better netrw
 Plug 'wincent/terminus'     " iTerm2 integration
 
-Plug 'vim-airline/vim-airline'
-Plug 'morhetz/gruvbox'
+Plug 'nvim-tree/nvim-web-devicons', Cond(has('nvim'))
+Plug 'lewis6991/gitsigns.nvim', Cond(has('nvim'))
+Plug 'romgrk/barbar.nvim', Cond(has('nvim'))
+
+Plug 'vim-airline/vim-airline', Cond(!has('nvim'))
+Plug 'vim-airline/vim-airline-themes', Cond(!has('nvim'))
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline_powerline_fonts = 1
+
+Plug 'tinted-theming/tinted-vim'
 
 " Nerdtree: file browser
 Plug 'scrooloose/nerdtree'
@@ -37,7 +48,6 @@ Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'dense-analysis/ale'
-Plug 'FunctionalHacker/zplugin-vim-syntax'
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['htmldjango']
 
@@ -104,19 +114,19 @@ endfunction
 Plug 'mattn/webapi-vim'
 Plug 'https://git.sr.ht/~willdurand/srht.vim'
 
-if has('nvim')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-  Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter', {'cond': has('nvim'), 'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/playground', Cond(has('nvim'))
 
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'hrsh7th/nvim-compe'
+Plug 'neovim/nvim-lspconfig', Cond(has('nvim'))
+Plug 'hrsh7th/nvim-compe', Cond(has('nvim'))
 
-  " dependencies
-  Plug 'nvim-lua/popup.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  " telescope
-  Plug 'nvim-telescope/telescope.nvim'
-endif
+" dependencies
+Plug 'nvim-lua/popup.nvim', Cond(has('nvim'))
+Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))
+" telescope
+Plug 'nvim-telescope/telescope.nvim', Cond(has('nvim'))
+
+Plug 'cormacrelf/dark-notify', Cond(has('nvim'))
 
 " use normal easymotion when in VIM mode
 Plug 'easymotion/vim-easymotion', Cond(!exists('g:vscode'))
@@ -207,11 +217,22 @@ set termguicolors          " 24 bit colors
 set background  =dark
 augroup MyTheme
     autocmd!
-    autocmd ColorScheme gruvbox let g:airline_theme ='gruvbox'
+    autocmd ColorScheme base16-gruvbox-light-medium let g:airline_theme ='base16_gruvbox_light_medium'
 augroup END
-if index(getcompletion('', 'color'), 'gruvbox') >= 0
-    colorscheme gruvbox
+if index(getcompletion('', 'color'), 'base16-gruvbox-light-medium') >= 0
+    colorscheme base16-gruvbox-light-medium
 endif
+
+function! SetBackgroundMode(...)
+  let s:sys = system("defaults read -g AppleInterfaceStyle 2&>/dev/null")
+  if v:shell_error
+    set background=light
+  else
+    set background=dark
+  endif
+endfunctio)n
+" call once 'after zero seconds' so that loading is not paused
+au BufRead,BufNewFile * call timer_start(0, "SetBackgroundMode", {"repeat": 0})
 " }
 
 " Pretty symbols {
@@ -246,10 +267,6 @@ set grepprg=rg\ --vimgrep
 
 " ALE (Asynchronous Lint Engine) {
 let g:ale_completion_enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#bufferline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline_powerline_fonts = 1
 let g:ale_sh_shfmt_options = '-s -i 2 -ci'
 
 let g:ale_fixers = {
