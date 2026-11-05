@@ -128,6 +128,8 @@ Plug 'nvim-telescope/telescope.nvim', Cond(has('nvim'))
 
 Plug 'cormacrelf/dark-notify', Cond(has('nvim'))
 
+Plug 'github/copilot.vim', Cond(has('nvim'))
+
 " use normal easymotion when in VIM mode
 Plug 'easymotion/vim-easymotion', Cond(!exists('g:vscode'))
 " use VSCode easymotion when in VSCode mode
